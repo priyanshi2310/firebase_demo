@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_demo_project/login_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'firebase_options.dart';
@@ -12,17 +13,16 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
+      home: const LoginScreen(),
     );
   }
 }
@@ -57,7 +57,9 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             TextFormField(
               controller: emailController,
-              decoration: InputDecoration(hintText: "Email"),
+              decoration: InputDecoration(
+                hintText: "Email",
+              ),
               validator: (value) {
                 if (value!.isEmpty ||
                     !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -67,10 +69,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 return null;
               },
             ),
-            SizedBox(height: 10),
+            SizedBox(
+              height: 10,
+            ),
             TextFormField(
               controller: passwordController,
-              decoration: InputDecoration(hintText: "Password"),
+              decoration: InputDecoration(
+                hintText: "Password",
+              ),
               validator: (value) {
                 if (value!.isEmpty) {
                   return "Please Enter password";
@@ -78,7 +84,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 return null;
               },
             ),
-            SizedBox(height: 20),
+            SizedBox(
+              height: 20,
+            ),
             isLoading
                 ? CircularProgressIndicator()
                 : TextButton(
@@ -89,20 +97,23 @@ class _MyHomePageState extends State<MyHomePage> {
                         } else {
                           userRegistration();
                         }
-
                         print("result is ====== $isSuccess");
                       }
                     },
-                    child: Text(isLoginState ? "Sign in" : "Sign up")),
+                    child: Text(isLoginState ? "Sign in" : "Sign up"),
+                  ),
             InkWell(
-                onTap: () {
-                  setState(() {
-                    isLoginState = !isLoginState;
-                  });
-                },
-                child: Text(isLoginState
+              onTap: () {
+                setState(() {
+                  isLoginState = !isLoginState;
+                });
+              },
+              child: Text(
+                isLoginState
                     ? "Don't have an acoont Sign up"
-                    : "Already have an account Singn in"))
+                    : "Already have an account Singn in",
+              ),
+            ),
           ],
         ),
       ),
