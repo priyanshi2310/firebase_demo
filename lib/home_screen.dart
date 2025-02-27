@@ -35,9 +35,13 @@ class _HomeScreenState extends State<HomeScreen> {
               return "Please enter valid first name";
             },
             decoration: InputDecoration(
-                hintText: "First Name",
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)))),
+              hintText: "First Name",
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(15),
+                ),
+              ),
+            ),
           ),
           SizedBox(height: 15),
           TextFormField(
@@ -49,9 +53,13 @@ class _HomeScreenState extends State<HomeScreen> {
               return "Please enter valid last name";
             },
             decoration: InputDecoration(
-                hintText: "Last Name",
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(15)))),
+              hintText: "Last Name",
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(15),
+                ),
+              ),
+            ),
           ),
           SizedBox(height: 50),
           isLoading
@@ -78,7 +86,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       print("result ======= $result");
                     }
                   },
-                  child: Text("Add User")),
+                  child: Text("Add User"),
+                  ),
           TextButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(
