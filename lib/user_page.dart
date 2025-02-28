@@ -1,3 +1,4 @@
+import 'package:firebase_demo_project/edit_user_page.dart';
 import 'package:firebase_demo_project/service/firebase_service.dart';
 import 'package:flutter/material.dart';
 
@@ -35,9 +36,40 @@ class _UserDataPageState extends State<UserDataPage> {
             physics: const BouncingScrollPhysics(),
             itemCount: documents?.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(documents?[index]['firstName']),
-                subtitle: Text(documents?[index]['lastName']),
+              return Dismissible(
+                key: Key(documents![index].id),
+                confirmDismiss: (direction) async {
+                  if (direction == DismissDirection.endToStart) {
+                    await service.deleteUser(documents![index].id);
+                  }
+                },
+                direction: DismissDirection.endToStart,
+                child: ListTile(
+                  trailing: SizedBox(
+                    width: 80,
+                    child: Row(
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return EditUserPage(
+                                      userData: documents![index]);
+                                },
+                              ));
+                            },
+                            icon: Icon(Icons.edit)),
+                        IconButton(
+                            onPressed: () async {
+                              await service.deleteUser(documents![index].id);
+                            },
+                            icon: Icon(Icons.delete)),
+                      ],
+                    ),
+                  ),
+                  title: Text(documents?[index]['firstName']),
+                  subtitle: Text(documents?[index]['lastName']),
+                ),
               );
             },
           );

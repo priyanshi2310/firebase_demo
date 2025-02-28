@@ -14,6 +14,9 @@ class _HomeScreenState extends State<HomeScreen> {
   CloudFirestoreService service = CloudFirestoreService();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
+  double width = 100;
+  double height = 100;
+  Color color = Colors.red;
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -103,6 +106,37 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 child: Text("Show All user"),
               ),
+              AnimatedContainer(
+                width: width,
+                height: height,
+                decoration: BoxDecoration(color: color),
+                duration: Duration(seconds: 2),
+                // curve: Curves.slowMiddle,
+              ),
+              TextButton(
+                  onPressed: () {
+                    setState(() {
+                      height = height + 50;
+                      width = width + 50;
+                      color = Colors.green;
+                    });
+                  },
+                  child: Text("animation")),
+              Row(
+                children: List.generate(
+                    5,
+                    (index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          color: Colors.red,
+                        ),
+                      );
+                    },
+                  )
+              )
             ],
           ),
         ),
