@@ -1,15 +1,32 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_demo_project/contact_list_project/contact_list.dart';
+import 'package:firebase_demo_project/contact_list_project/edit_contect.dart';
+import 'package:firebase_demo_project/contact_list_project/add_contact_screen.dart';
 import 'package:firebase_demo_project/home_screen.dart';
+import 'package:firebase_demo_project/login_screen.dart';
+import 'package:firebase_demo_project/service/firebase_push_notification.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'firebase_options.dart';
 
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print("Background Message Received: ${message.notification?.title}");
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Handle background notifications
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+  // Initialize Notifications
+  await FirebaseNotificationService.initialize();
+
   runApp(const MyApp());
 }
 
@@ -24,8 +41,8 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
           useMaterial3: true,
         ),
-        // home: const LoginScreen(),
-        home: HomeScreen());
+        // home: const HomeScreen());
+    home: AddContactScreen());
   }
 }
 

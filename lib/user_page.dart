@@ -21,7 +21,7 @@ class _UserDataPageState extends State<UserDataPage> {
           child: StreamBuilder(
         stream: service.getUsers(),
         builder: (context, snapshot) {
-          // check our connection (loading|error)
+         
           if (snapshot.connectionState == ConnectionState.waiting ||
               snapshot.connectionState == ConnectionState.none) {
             return const Center(child: CircularProgressIndicator());
