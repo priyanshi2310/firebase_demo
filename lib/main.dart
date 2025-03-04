@@ -1,10 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_demo_project/contact_list_project/contact_list.dart';
-import 'package:firebase_demo_project/contact_list_project/edit_contect.dart';
 import 'package:firebase_demo_project/contact_list_project/add_contact_screen.dart';
-import 'package:firebase_demo_project/home_screen.dart';
-import 'package:firebase_demo_project/login_screen.dart';
+
 import 'package:firebase_demo_project/service/firebase_push_notification.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 

@@ -76,7 +76,6 @@ class _ContactListScreenState extends State<ContactListScreen> {
                         children: [
                           IconButton(
                             onPressed: () {
-                             
                               if (document.id != null) {
                                 Navigator.push(
                                   context,
@@ -94,7 +93,6 @@ class _ContactListScreenState extends State<ContactListScreen> {
                                   ),
                                 );
                               } else {
-                                
                                 print("Error: Document ID is null");
                               }
                             },
@@ -102,7 +100,36 @@ class _ContactListScreenState extends State<ContactListScreen> {
                           ),
                           IconButton(
                             onPressed: () async {
-                              await service.deleteUser(document.id);
+                              // Show confirmation dialog before deleting
+                              bool? confirmDelete = await showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Delete Contact'),
+                                    content: Text(
+                                        'Are you sure you want to delete this contact?'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop(false);
+                                        },
+                                        child: Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () async {
+                                          await service.deleteUser(document.id);
+                                          Navigator.of(context).pop(true);
+                                        },
+                                        child: Text('Yes'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+
+                              if (confirmDelete == true) {
+                                await service.deleteUser(document.id);
+                              }
                             },
                             icon: Icon(Icons.delete),
                           ),
